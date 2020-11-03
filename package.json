@@ -1,0 +1,49 @@
+{
+  "name": "@alchemy_cms/vue",
+  "version": "0.0.1",
+  "description": "VueJS mixins for AlchemyCMS",
+  "scripts": {
+    "test": "jest --forceExit --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlchemyCMS/alchemy-vue.git"
+  },
+  "keywords": [
+    "VueJS",
+    "AlchemyCMS",
+    "cms",
+    "headless"
+  ],
+  "author": "Thomas von Deyen",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/AlchemyCMS/alchemy-vue/issues"
+  },
+  "homepage": "https://github.com/AlchemyCMS/alchemy-vue#readme",
+  "peerDependencies": {
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.12.1",
+    "@vue/test-utils": "^1.1.1",
+    "babel-jest": "^26.6.2",
+    "jest": "^26.6.2",
+    "prettier": "^2.1.2",
+    "typescript": ">=3.8 <5.0",
+    "vue": "^2.6.12",
+    "vue-jest": "^4.0.0-rc.0",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.vue$": "vue-jest"
+    }
+  }
+}
