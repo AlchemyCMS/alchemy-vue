@@ -1,7 +1,7 @@
 {
   "name": "@alchemy_cms/vue",
   "version": "0.1.0",
-  "description": "VueJS mixins for AlchemyCMS",
+  "description": "AlchemyCMS mixins for VueJS",
   "main": "dist/alchemy-vue.js",
   "files": [
     "dist"
