@@ -1,4 +1,4 @@
-import FallbackElement from "../components/FallbackElement"
+import FallbackElement from "../components/FallbackElement.vue"
 
 export default {
   components: { FallbackElement },
