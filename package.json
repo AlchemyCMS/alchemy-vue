@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/AlchemyCMS/alchemy-vue#readme",
   "peerDependencies": {
-    "vue": "^2.6.12"
+    "vue": "^2.x"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
