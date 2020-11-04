@@ -1,5 +1,7 @@
 # AlchemyCMS mixins for VueJS
 
+[![Build Status](https://travis-ci.com/AlchemyCMS/alchemy-vue.svg?branch=main)](https://travis-ci.com/AlchemyCMS/alchemy-vue)
+
 [VueJS](https://vuejs.org) mixins for rendering content from [AlchemyCMS](https://alchemy-cms.com)
 
 ## Install
