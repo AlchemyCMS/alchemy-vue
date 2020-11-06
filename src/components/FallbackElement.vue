@@ -2,9 +2,10 @@
   <div class="alchemy-fallback-element">
     <h2>I am a dummy {{ element.name }} Alchemy element component</h2>
     <p>
-      To replace me put a Vue component into
-      <kbd>~/components/Alchemy/Elements/</kbd>
-      and register it as local component.
+      To replace me register a local Vue component named
+      <kbd>{{ element.name }}</kbd> at your
+      <kbd>{{ $parent.$options.name || $parent.$options._componentTag }}</kbd>
+      component.
     </p>
     <template v-if="element.essences.length">
       <h3>This element has {{ element.essences.length }} essence(s)</h3>
