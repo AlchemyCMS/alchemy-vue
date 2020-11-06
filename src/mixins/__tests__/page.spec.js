@@ -11,7 +11,7 @@ const AlchemyPageComponent = {
   template: `
     <div class="alchemy-page">
       <component
-        :is="elementType(element)"
+        :is="componentName(element)"
         v-for="element in page.elements"
         :key="element.id"
         :element="element"
@@ -97,7 +97,7 @@ describe("Alchemy page mixin", () => {
     })
   })
 
-  describe("elementType", () => {
+  describe("componentName", () => {
     describe("if element component has been registered", () => {
       it("returns the component name", () => {
         const component = shallowMount(AlchemyPageComponent, {

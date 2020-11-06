@@ -9,7 +9,7 @@ export default {
     },
   },
   methods: {
-    elementType(element) {
+    componentName(element) {
       const name = element.name
       if (this.$options.components[name]) {
         return name
