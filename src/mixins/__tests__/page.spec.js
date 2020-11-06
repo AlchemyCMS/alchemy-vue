@@ -40,7 +40,7 @@ describe("Alchemy page mixin", () => {
   describe("elementByName", () => {
     describe("if element exists", () =>{
       it("returns element", () => {
-        const element = { element_type: "header" }
+        const element = { name: "header" }
         const component = shallowMount(AlchemyPageComponent, {
           propsData: {
             page: {
@@ -70,7 +70,7 @@ describe("Alchemy page mixin", () => {
   describe("elementsByName", () => {
     describe("if element exists", () =>{
       it("returns element", () => {
-        const elements = [{ element_type: "header" }]
+        const elements = [{ name: "header" }]
         const component = shallowMount(AlchemyPageComponent, {
           propsData: {
             page: {
@@ -103,7 +103,7 @@ describe("Alchemy page mixin", () => {
         const component = shallowMount(AlchemyPageComponent, {
           propsData: {
             page: {
-              elements: [{ element_type: "element_component" }],
+              elements: [{ name: "element_component" }],
             },
           },
         })
@@ -118,7 +118,7 @@ describe("Alchemy page mixin", () => {
         const component = shallowMount(AlchemyPageComponent, {
           propsData: {
             page: {
-              elements: [{ element_type: "something" }],
+              elements: [{ name: "something" }],
             },
           },
         })

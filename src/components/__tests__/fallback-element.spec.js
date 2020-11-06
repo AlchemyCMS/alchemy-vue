@@ -5,7 +5,7 @@ function getComponent() {
   return shallowMount(FallbackElement, {
     propsData: {
       element: {
-        element_type: "main_header",
+        name: "main_header",
         essences: [
           {
             role: "headline",
@@ -13,7 +13,7 @@ function getComponent() {
         ],
         nested_elements: [
           {
-            element_type: "header",
+            name: "header",
           },
         ],
       },
