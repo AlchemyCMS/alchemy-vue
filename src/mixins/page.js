@@ -9,8 +9,8 @@ export default {
     },
   },
   methods: {
-    elementType(element) {
-      const name = element.element_type
+    componentName(element) {
+      const name = element.name
       if (this.$options.components[name]) {
         return name
       }
@@ -20,7 +20,7 @@ export default {
       return this.elementsByName(name)[0]
     },
     elementsByName(name) {
-      return this.page.elements.filter((e) => e.element_type === name)
+      return this.page.elements.filter((e) => e.name === name)
     },
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="alchemy-fallback-element">
-    <h2>I am a dummy {{ element.element_type }} Alchemy element component</h2>
+    <h2>I am a dummy {{ element.name }} Alchemy element component</h2>
     <p>
       To replace me put a Vue component into
       <kbd>~/components/Alchemy/Elements/</kbd>

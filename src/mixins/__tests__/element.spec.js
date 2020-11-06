@@ -9,7 +9,7 @@ const AlchemyElementComponent = {
 describe("Alchemy element mixin", () => {
   it("has access to the element", () => {
     const element = {
-      element_type: "content_page",
+      name: "content_page",
       essences: [],
     }
     const comp = shallowMount(AlchemyElementComponent, {
@@ -26,7 +26,7 @@ describe("Alchemy element mixin", () => {
         const comp = shallowMount(AlchemyElementComponent, {
           propsData: {
             element: {
-              element_type: "content_page",
+              name: "content_page",
               essences: [],
             },
           },
@@ -41,7 +41,7 @@ describe("Alchemy element mixin", () => {
         const comp = shallowMount(AlchemyElementComponent, {
           propsData: {
             element: {
-              element_type: "content_page",
+              name: "content_page",
               essences: [headline],
             },
           },
@@ -57,7 +57,7 @@ describe("Alchemy element mixin", () => {
         const comp = shallowMount(AlchemyElementComponent, {
           propsData: {
             element: {
-              element_type: "content_page",
+              name: "content_page",
               essences: [],
             },
           },
@@ -72,7 +72,7 @@ describe("Alchemy element mixin", () => {
         const comp = shallowMount(AlchemyElementComponent, {
           propsData: {
             element: {
-              element_type: "content_page",
+              name: "content_page",
               essences: [headline],
             },
           },

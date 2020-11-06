@@ -23,13 +23,13 @@ export default {
 }
 ```
 
-You now have acces to the `page` prop and its `elements`. Also you have access to the `elementType()` method that you can use to dynamically render element components.
+You now have acces to the `page` prop and its `elements`. Also you have access to the `componentName()` method that you can use to dynamically render element components.
 
 ```html
 <template>
   <div :class="page.page_layout">
     <component
-      :is="elementType(element)"
+      :is="componentName(element)"
       v-for="element in page.elements"
       :key="element.id"
       :element="element"
