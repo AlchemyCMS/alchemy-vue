@@ -37,31 +37,93 @@ describe("Alchemy page mixin", () => {
     expect(comp.vm.page).toEqual(page)
   })
 
-  describe("if element component has been registered", () => {
-    it("loads the component", () => {
-      const component = shallowMount(AlchemyPageComponent, {
-        propsData: {
-          page: {
-            elements: [{ element_type: "element_component" }],
+  describe("elementByName", () => {
+    describe("if element exists", () =>{
+      it("returns element", () => {
+        const element = { element_type: "header" }
+        const component = shallowMount(AlchemyPageComponent, {
+          propsData: {
+            page: {
+              elements: [element],
+            },
           },
-        },
+        })
+        expect(component.vm.elementByName("header")).toEqual(element)
+
       })
-      expect(
-        component.findComponent(AlchemyElementComponent).exists()
-      ).toBeTruthy()
+    })
+
+    describe("if element does not exist", () =>{
+      it("returns undefined", () => {
+        const component = shallowMount(AlchemyPageComponent, {
+          propsData: {
+            page: {
+              elements: [],
+            },
+          },
+        })
+        expect(component.vm.elementByName("foo")).toBeUndefined()
+      })
     })
   })
 
-  describe("if element component has not been registered", () => {
-    it("loads the fallback component", () => {
-      const component = shallowMount(AlchemyPageComponent, {
-        propsData: {
-          page: {
-            elements: [{ element_type: "something" }],
+  describe("elementsByName", () => {
+    describe("if element exists", () =>{
+      it("returns element", () => {
+        const elements = [{ element_type: "header" }]
+        const component = shallowMount(AlchemyPageComponent, {
+          propsData: {
+            page: {
+              elements,
+            },
           },
-        },
+        })
+        expect(component.vm.elementsByName("header")).toEqual(elements)
+
       })
-      expect(component.findComponent(FallbackElement).exists()).toBeTruthy()
+    })
+
+    describe("if element does not exist", () =>{
+      it("returns undefined", () => {
+        const component = shallowMount(AlchemyPageComponent, {
+          propsData: {
+            page: {
+              elements: [],
+            },
+          },
+        })
+        expect(component.vm.elementsByName("foo")).toEqual([])
+      })
+    })
+  })
+
+  describe("elementType", () => {
+    describe("if element component has been registered", () => {
+      it("returns the component name", () => {
+        const component = shallowMount(AlchemyPageComponent, {
+          propsData: {
+            page: {
+              elements: [{ element_type: "element_component" }],
+            },
+          },
+        })
+        expect(
+          component.findComponent(AlchemyElementComponent).exists()
+        ).toBeTruthy()
+      })
+    })
+
+    describe("if element component has not been registered", () => {
+      it("returns the fallback component name", () => {
+        const component = shallowMount(AlchemyPageComponent, {
+          propsData: {
+            page: {
+              elements: [{ element_type: "something" }],
+            },
+          },
+        })
+        expect(component.findComponent(FallbackElement).exists()).toBeTruthy()
+      })
     })
   })
 })
