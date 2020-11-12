@@ -24,6 +24,15 @@ const AlchemyPageComponent = {
 }
 
 describe("Alchemy page mixin", () => {
+  it("without page has default object", () => {
+    const comp = shallowMount(AlchemyPageComponent, {
+      propsData: {
+        page: undefined,
+      },
+    })
+    expect(comp.vm.page).toEqual({ elements: [] })
+  })
+
   it("has access to the page", () => {
     const page = {
       page_layout: "content_page",
@@ -38,7 +47,7 @@ describe("Alchemy page mixin", () => {
   })
 
   describe("elementByName", () => {
-    describe("if element exists", () =>{
+    describe("if element exists", () => {
       it("returns element", () => {
         const element = { name: "header" }
         const component = shallowMount(AlchemyPageComponent, {
@@ -49,12 +58,11 @@ describe("Alchemy page mixin", () => {
           },
         })
         expect(component.vm.elementByName("header")).toEqual(element)
-
       })
     })
 
-    describe("if element does not exist", () =>{
-      it("returns undefined", () => {
+    describe("if element does not exist", () => {
+      it("returns empty object", () => {
         const component = shallowMount(AlchemyPageComponent, {
           propsData: {
             page: {
@@ -62,13 +70,13 @@ describe("Alchemy page mixin", () => {
             },
           },
         })
-        expect(component.vm.elementByName("foo")).toBeUndefined()
+        expect(component.vm.elementByName("foo")).toEqual({})
       })
     })
   })
 
   describe("elementsByName", () => {
-    describe("if element exists", () =>{
+    describe("if element exists", () => {
       it("returns element", () => {
         const elements = [{ name: "header" }]
         const component = shallowMount(AlchemyPageComponent, {
@@ -79,11 +87,10 @@ describe("Alchemy page mixin", () => {
           },
         })
         expect(component.vm.elementsByName("header")).toEqual(elements)
-
       })
     })
 
-    describe("if element does not exist", () =>{
+    describe("if element does not exist", () => {
       it("returns undefined", () => {
         const component = shallowMount(AlchemyPageComponent, {
           propsData: {

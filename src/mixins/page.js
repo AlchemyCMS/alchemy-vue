@@ -6,6 +6,11 @@ export default {
     page: {
       type: Object,
       required: true,
+      default() {
+        return {
+          elements: [],
+        }
+      },
     },
   },
   methods: {
@@ -17,7 +22,7 @@ export default {
       return "FallbackElement"
     },
     elementByName(name) {
-      return this.elementsByName(name)[0]
+      return this.elementsByName(name)[0] || {}
     },
     elementsByName(name) {
       return this.page.elements.filter((e) => e.name === name)
