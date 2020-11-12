@@ -13,7 +13,7 @@ export default {
             message: "Alchemy.focusElementEditor",
             element_id: this.element.id,
           },
-          "*",
+          "*"
         )
       })
     }
@@ -29,16 +29,21 @@ export default {
       }
     },
     getIngredient(name) {
-      return this.getEssence(name)?.ingredient
+      return this.getEssence(name).ingredient
     },
     getEssence(name) {
-      return this.element.essences.find((e) => e.role === name)
+      return this.element.essences.find((e) => e.role === name) || {}
     },
   },
   props: {
     element: {
       type: Object,
       required: true,
+      default() {
+        return {
+          essences: [],
+        }
+      },
     },
   },
 }

@@ -7,6 +7,15 @@ const AlchemyElementComponent = {
 }
 
 describe("Alchemy element mixin", () => {
+  it("without element has default object", () => {
+    const comp = shallowMount(AlchemyElementComponent, {
+      propsData: {
+        element: undefined,
+      },
+    })
+    expect(comp.vm.element).toEqual({ essences: [] })
+  })
+
   it("has access to the element", () => {
     const element = {
       name: "content_page",
@@ -31,7 +40,7 @@ describe("Alchemy element mixin", () => {
             },
           },
         })
-        expect(comp.vm.getEssence("foo")).toBeUndefined()
+        expect(comp.vm.getEssence("foo")).toEqual({})
       })
     })
 
@@ -87,11 +96,11 @@ describe("Alchemy element mixin", () => {
       it.skip("scrolls element into view", () => {
         const comp = shallowMount(AlchemyElementComponent, {
           propsData: {
-            element: {}
+            element: {},
           },
           mocks: {
-            $el: {}
-          }
+            $el: {},
+          },
         })
         const spy = jest.spyOn(comp.vm.$el, "scrollIntoView")
         comp.vm.focusAlchemyElement(1001)
