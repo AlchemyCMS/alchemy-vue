@@ -34,6 +34,13 @@ export default {
     getEssence(name) {
       return this.element.essences.find((e) => e.role === name) || {}
     },
+    componentName(element) {
+      const name = element.name
+      if (this.$options.components[name]) {
+        return name
+      }
+      return "FallbackElement"
+    },
   },
   props: {
     element: {
