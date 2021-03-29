@@ -91,6 +91,52 @@ describe("Alchemy element mixin", () => {
     })
   })
 
+  describe("getRichtext", () => {
+    describe("if essence does not exist", () => {
+      it("returns undefined", () => {
+        const comp = shallowMount(AlchemyElementComponent, {
+          propsData: {
+            element: {
+              name: "content_page",
+              essences: [],
+            },
+          },
+        })
+        expect(comp.vm.getRichtext("foo")).toBeUndefined()
+      })
+    })
+
+    describe("if essence with sanitized_body exists", () => {
+      it("returns the essences ingredient", () => {
+        const headline = { role: "headline", sanitized_body: "The Headline" }
+        const comp = shallowMount(AlchemyElementComponent, {
+          propsData: {
+            element: {
+              name: "content_page",
+              essences: [headline],
+            },
+          },
+        })
+        expect(comp.vm.getRichtext("headline")).toEqual("The Headline")
+      })
+    })
+
+    describe("if essence with body and no sanitized body exists", () => {
+      it("returns the essences ingredient", () => {
+        const headline = { role: "headline", body: "<h1>The Headline</h1>" }
+        const comp = shallowMount(AlchemyElementComponent, {
+          propsData: {
+            element: {
+              name: "content_page",
+              essences: [headline],
+            },
+          },
+        })
+        expect(comp.vm.getRichtext("headline")).toEqual("<h1>The Headline</h1>")
+      })
+    })
+  })
+
   describe("focusAlchemyElement", () => {
     describe("if id matches elements id", () => {
       it.skip("scrolls element into view", () => {

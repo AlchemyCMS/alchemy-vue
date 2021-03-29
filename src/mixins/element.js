@@ -31,6 +31,9 @@ export default {
     getIngredient(name) {
       return this.getEssence(name).ingredient
     },
+    getRichtext(name) {
+      return this.getEssence(name).sanitized_body || this.getEssence(name).body
+    },
     getEssence(name) {
       return this.element.essences.find((e) => e.role === name) || {}
     },
