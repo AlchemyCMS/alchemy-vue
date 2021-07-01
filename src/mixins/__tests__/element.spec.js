@@ -6,6 +6,11 @@ const AlchemyElementComponent = {
   template: `<div class="alchemy-element" />`,
 }
 
+beforeEach(() => {
+  // Mock the console.warn we use in the element mixin functions
+  jest.spyOn(console, "warn").mockImplementation(() => {})
+})
+
 describe("Alchemy element mixin", () => {
   it("without element has default object", () => {
     const comp = shallowMount(AlchemyElementComponent, {
@@ -30,17 +35,54 @@ describe("Alchemy element mixin", () => {
   })
 
   describe("getEssence", () => {
+    describe("if element has ingredients", () => {
+      describe("if ingredient does not exist", () => {
+        it("returns undefined", () => {
+          const comp = shallowMount(AlchemyElementComponent, {
+            propsData: {
+              element: {
+                name: "article",
+                ingredients: [],
+                essences: [],
+              },
+            },
+          })
+          expect(comp.vm.getIngredient("foo")).toBeUndefined()
+        })
+      })
+
+      describe("if ingredient exists", () => {
+        it("returns ingredient", () => {
+          const ingredient = {
+            role: "foo",
+            value: "baz",
+          }
+          const comp = shallowMount(AlchemyElementComponent, {
+            propsData: {
+              element: {
+                name: "article",
+                ingredients: [ingredient],
+                essences: [],
+              },
+            },
+          })
+          expect(comp.vm.getIngredient("foo")).toEqual(ingredient)
+        })
+      })
+    })
+
     describe("if essence does not exist", () => {
       it("returns undefined", () => {
         const comp = shallowMount(AlchemyElementComponent, {
           propsData: {
             element: {
               name: "content_page",
+              ingredients: [],
               essences: [],
             },
           },
         })
-        expect(comp.vm.getEssence("foo")).toEqual({})
+        expect(comp.vm.getEssence("foo")).toBeUndefined()
       })
     })
 
@@ -51,6 +93,7 @@ describe("Alchemy element mixin", () => {
           propsData: {
             element: {
               name: "content_page",
+              ingredients: [],
               essences: [headline],
             },
           },
@@ -61,6 +104,41 @@ describe("Alchemy element mixin", () => {
   })
 
   describe("getIngredient", () => {
+    describe("if element has ingredients", () => {
+      describe("if ingredient does not exist", () => {
+        it("returns undefined", () => {
+          const comp = shallowMount(AlchemyElementComponent, {
+            propsData: {
+              element: {
+                name: "article",
+                ingredients: [],
+                essences: [],
+              },
+            },
+          })
+          expect(comp.vm.getIngredient("foo")).toBeUndefined()
+        })
+      })
+
+      describe("if ingredient exists", () => {
+        it("returns ingredient", () => {
+          const ingredient = {
+            role: "foo",
+            value: "baz",
+          }
+          const comp = shallowMount(AlchemyElementComponent, {
+            propsData: {
+              element: {
+                name: "article",
+                ingredients: [ingredient],
+              },
+            },
+          })
+          expect(comp.vm.getIngredient("foo")).toEqual(ingredient)
+        })
+      })
+    })
+
     describe("if essence does not exist", () => {
       it("returns undefined", () => {
         const comp = shallowMount(AlchemyElementComponent, {
@@ -92,6 +170,55 @@ describe("Alchemy element mixin", () => {
   })
 
   describe("getRichtext", () => {
+    describe("if element has ingredients", () => {
+      describe("if ingredient does not exist", () => {
+        it("returns undefined", () => {
+          const comp = shallowMount(AlchemyElementComponent, {
+            propsData: {
+              element: {
+                name: "article",
+                ingredients: [],
+                essences: [],
+              },
+            },
+          })
+          expect(comp.vm.getRichtext("foo")).toBeUndefined()
+        })
+      })
+
+      describe("if ingredient with sanitized_body exists", () => {
+        it("returns the ingredients sanitized_body", () => {
+          const headline = { role: "headline", sanitized_body: "The Headline" }
+          const comp = shallowMount(AlchemyElementComponent, {
+            propsData: {
+              element: {
+                name: "article",
+                ingredients: [headline],
+              },
+            },
+          })
+          expect(comp.vm.getRichtext("headline")).toEqual("The Headline")
+        })
+      })
+
+      describe("if essence with body and no sanitized body exists", () => {
+        it("returns the ingredients value", () => {
+          const headline = { role: "headline", value: "<h1>The Headline</h1>" }
+          const comp = shallowMount(AlchemyElementComponent, {
+            propsData: {
+              element: {
+                name: "article",
+                essences: [headline],
+              },
+            },
+          })
+          expect(comp.vm.getRichtext("headline")).toEqual(
+            "<h1>The Headline</h1>"
+          )
+        })
+      })
+    })
+
     describe("if essence does not exist", () => {
       it("returns undefined", () => {
         const comp = shallowMount(AlchemyElementComponent, {
@@ -133,6 +260,38 @@ describe("Alchemy element mixin", () => {
           },
         })
         expect(comp.vm.getRichtext("headline")).toEqual("<h1>The Headline</h1>")
+      })
+    })
+  })
+
+  describe("getValue", () => {
+    describe("if ingredient does not exist", () => {
+      it("returns undefined", () => {
+        const comp = shallowMount(AlchemyElementComponent, {
+          propsData: {
+            element: {
+              name: "content_page",
+              ingredients: [],
+              essences: [],
+            },
+          },
+        })
+        expect(comp.vm.getValue("foo")).toBeUndefined()
+      })
+    })
+
+    describe("if ingredient exists", () => {
+      it("returns the ingredients value", () => {
+        const headline = { role: "headline", value: "The Headline" }
+        const comp = shallowMount(AlchemyElementComponent, {
+          propsData: {
+            element: {
+              name: "content_page",
+              ingredients: [headline],
+            },
+          },
+        })
+        expect(comp.vm.getValue("headline")).toEqual("The Headline")
       })
     })
   })
