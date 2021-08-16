@@ -1,3 +1,10 @@
+import {
+  getElementsEssence,
+  getElementsIngredient,
+  getElementsRichtext,
+  getElementsValue,
+} from "../utilities"
+
 export default {
   mounted() {
     if (window.location.search.match("alchemy_preview_mode=true")) {
@@ -28,37 +35,17 @@ export default {
         })
       }
     },
-    getIngredient(name, warn = false) {
-      if (this.hasIngredients) {
-        if (warn) {
-          console.warn(
-            `Element "${this.element.name}" has ingredients! We returned an ingredient object instead of a single value. Please use getValue("${name}") or use the value property to get the value of the "${name}" ingredient.`
-          )
-        }
-        return this.element.ingredients.find((i) => i.role === name)
-      }
-      return this.getEssence(name)?.ingredient
+    getIngredient(name) {
+      return getElementsIngredient(this.element, name)
     },
     getRichtext(name) {
-      let thing
-      if (this.hasIngredients) {
-        thing = this.getIngredient(name, false) || {}
-      } else {
-        thing = this.getEssence(name) || {}
-      }
-      return thing.sanitized_body || thing.value || thing.body
+      return getElementsRichtext(this.element, name)
     },
     getEssence(name) {
-      if (this.hasIngredients) {
-        console.warn(
-          `Element "${this.element.name}" has ingredients! We returned the ingredient object, but please use getIngredient("${name}") instead.`
-        )
-        return this.getIngredient(name, false)
-      }
-      return this.element.essences.find((e) => e.role === name)
+      return getElementsEssence(this.element, name)
     },
     getValue(name) {
-      return this.getIngredient(name, false)?.value
+      return getElementsValue(this.element, name)
     },
     componentName(element) {
       const name = element.name
@@ -66,11 +53,6 @@ export default {
         return name
       }
       return "FallbackElement"
-    },
-  },
-  computed: {
-    hasIngredients() {
-      return this.element.ingredients && this.element.ingredients.length > 0
     },
   },
   props: {
