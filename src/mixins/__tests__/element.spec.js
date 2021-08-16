@@ -47,7 +47,7 @@ describe("Alchemy element mixin", () => {
               },
             },
           })
-          expect(comp.vm.getIngredient("foo")).toBeUndefined()
+          expect(comp.vm.getEssence("foo")).toBeUndefined()
         })
       })
 
@@ -66,7 +66,7 @@ describe("Alchemy element mixin", () => {
               },
             },
           })
-          expect(comp.vm.getIngredient("foo")).toEqual(ingredient)
+          expect(comp.vm.getEssence("foo")).toEqual(ingredient)
         })
       })
     })

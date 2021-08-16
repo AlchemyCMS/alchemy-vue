@@ -2,6 +2,54 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+function hasIngredients(element) {
+  return element.ingredients && element.ingredients.length > 0;
+}
+
+function getElementsEssence(element, name) {
+  if (hasIngredients(element)) {
+    console.warn("Element \"".concat(element.name, "\" has ingredients! We returned the ingredient object, but please use getIngredient(\"").concat(name, "\") instead."));
+    return getElementsIngredient(element, name, false);
+  }
+
+  return element.essences.find(function (e) {
+    return e.role === name;
+  });
+}
+function getElementsIngredient(element, name) {
+  var _getElementsEssence;
+
+  var warn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+  if (hasIngredients(element)) {
+    if (warn) {
+      console.warn("Element \"".concat(element.name, "\" has ingredients! We returned an ingredient object instead of a single value. Please use getValue(\"").concat(name, "\") or use the value property to get the value of the \"").concat(name, "\" ingredient."));
+    }
+
+    return element.ingredients.find(function (i) {
+      return i.role === name;
+    });
+  }
+
+  return (_getElementsEssence = getElementsEssence(element, name)) === null || _getElementsEssence === void 0 ? void 0 : _getElementsEssence.ingredient;
+}
+function getElementsRichtext(element, name) {
+  var thing;
+
+  if (hasIngredients(element)) {
+    thing = getElementsIngredient(element, name, false) || {};
+  } else {
+    thing = getElementsEssence(element, name) || {};
+  }
+
+  return thing.sanitized_body || thing.value || thing.body;
+}
+function getElementsValue(element, name) {
+  var _getElementsIngredien;
+
+  return (_getElementsIngredien = getElementsIngredient(element, name, false)) === null || _getElementsIngredien === void 0 ? void 0 : _getElementsIngredien.value;
+}
+
 var AlchemyElement = {
   mounted: function mounted() {
     var _this = this;
@@ -33,47 +81,16 @@ var AlchemyElement = {
       }
     },
     getIngredient: function getIngredient(name) {
-      var _this$getEssence;
-
-      var warn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-      if (this.hasIngredients) {
-        if (warn) {
-          console.warn("Element \"".concat(this.element.name, "\" has ingredients! We returned an ingredient object instead of a single value. Please use getValue(\"").concat(name, "\") or use the value property to get the value of the \"").concat(name, "\" ingredient."));
-        }
-
-        return this.element.ingredients.find(function (i) {
-          return i.role === name;
-        });
-      }
-
-      return (_this$getEssence = this.getEssence(name)) === null || _this$getEssence === void 0 ? void 0 : _this$getEssence.ingredient;
+      return getElementsIngredient(this.element, name);
     },
     getRichtext: function getRichtext(name) {
-      var thing;
-
-      if (this.hasIngredients) {
-        thing = this.getIngredient(name, false) || {};
-      } else {
-        thing = this.getEssence(name) || {};
-      }
-
-      return thing.sanitized_body || thing.value || thing.body;
+      return getElementsRichtext(this.element, name);
     },
     getEssence: function getEssence(name) {
-      if (this.hasIngredients) {
-        console.warn("Element \"".concat(this.element.name, "\" has ingredients! We returned the ingredient object, but please use getIngredient(\"").concat(name, "\") instead."));
-        return this.getIngredient(name, false);
-      }
-
-      return this.element.essences.find(function (e) {
-        return e.role === name;
-      });
+      return getElementsEssence(this.element, name);
     },
     getValue: function getValue(name) {
-      var _this$getIngredient;
-
-      return (_this$getIngredient = this.getIngredient(name, false)) === null || _this$getIngredient === void 0 ? void 0 : _this$getIngredient.value;
+      return getElementsValue(this.element, name);
     },
     componentName: function componentName(element) {
       var name = element.name;
@@ -83,11 +100,6 @@ var AlchemyElement = {
       }
 
       return "FallbackElement";
-    }
-  },
-  computed: {
-    hasIngredients: function hasIngredients() {
-      return this.element.ingredients && this.element.ingredients.length > 0;
     }
   },
   props: {
@@ -343,3 +355,7 @@ var page = {
 
 exports.AlchemyElement = AlchemyElement;
 exports.AlchemyPage = page;
+exports.getElementsEssence = getElementsEssence;
+exports.getElementsIngredient = getElementsIngredient;
+exports.getElementsRichtext = getElementsRichtext;
+exports.getElementsValue = getElementsValue;
