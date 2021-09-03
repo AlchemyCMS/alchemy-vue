@@ -1,8 +1,15 @@
 {
   "name": "@alchemy_cms/vue",
   "version": "0.8.0",
-  "description": "AlchemyCMS mixins for VueJS",
+  "description": "AlchemyCMS mixins, utilities and components for VueJS",
   "main": "dist/alchemy-vue.js",
+  "module": "dist/alchemy-vue.mjs",
+  "exports": {
+    ".": "./dist/alchemy-vue.js",
+    "./ingredients": {
+      "import": "./dist/ingredients.js"
+    }
+  },
   "files": [
     "dist"
   ],

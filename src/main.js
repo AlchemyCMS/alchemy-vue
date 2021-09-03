@@ -1,16 +1,7 @@
-import { AlchemyElement, AlchemyPage } from "./mixins/index"
-import {
+export { AlchemyElement, AlchemyPage } from "./mixins/index"
+export {
   getElementsEssence,
   getElementsIngredient,
   getElementsRichtext,
   getElementsValue,
 } from "./utilities"
-
-export {
-  AlchemyElement,
-  AlchemyPage,
-  getElementsEssence,
-  getElementsIngredient,
-  getElementsRichtext,
-  getElementsValue,
-}

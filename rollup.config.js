@@ -1,11 +1,29 @@
 import vue from "rollup-plugin-vue"
 import babel from "@rollup/plugin-babel"
 
-export default {
-  input: "src/main.js",
-  output: {
-    file: "dist/alchemy-vue.js",
-    format: "cjs",
+const plugins = [vue(), babel({ babelHelpers: "bundled" })]
+
+export default [
+  {
+    input: "src/main.js",
+    output: [
+      {
+        file: "dist/alchemy-vue.js",
+        format: "cjs",
+      },
+      {
+        file: "dist/alchemy-vue.mjs",
+        format: "es",
+      },
+    ],
+    plugins,
   },
-  plugins: [vue(), babel({ babelHelpers: "bundled" })],
-}
+  {
+    input: "src/ingredients.js",
+    output: {
+      file: "dist/ingredients.js",
+      format: "es",
+    },
+    plugins,
+  },
+]
