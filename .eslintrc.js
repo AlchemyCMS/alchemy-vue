@@ -14,5 +14,8 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["vue", "jest"],
-  rules: {},
+  rules: {
+    "vue/max-attributes-per-line": 0,
+    "vue/html-self-closing": 0,
+  },
 }
