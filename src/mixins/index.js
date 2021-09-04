@@ -1,4 +1,5 @@
 import AlchemyElement from "./element"
+import AlchemyIngredient from "./ingredient"
 import AlchemyPage from "./page"
 
-export { AlchemyElement, AlchemyPage }
+export { AlchemyElement, AlchemyIngredient, AlchemyPage }

@@ -28,12 +28,11 @@
 </template>
 
 <script>
+  import Ingredient from "../../mixins/ingredient"
+
   export default {
+    mixins: [Ingredient],
     props: {
-      ingredient: {
-        type: Object,
-        required: true,
-      },
       imageClass: {
         type: String,
         default: null,

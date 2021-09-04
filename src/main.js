@@ -1,4 +1,5 @@
-export { AlchemyElement, AlchemyPage } from "./mixins/index"
+export { AlchemyElement, AlchemyIngredient, AlchemyPage } from "./mixins/index"
+
 export {
   getElementsEssence,
   getElementsIngredient,
