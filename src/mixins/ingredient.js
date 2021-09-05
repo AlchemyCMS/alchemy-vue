@@ -6,6 +6,9 @@ export default {
     },
   },
   computed: {
+    value() {
+      return this.ingredient?.value
+    },
     linkUrl() {
       return this.ingredient?.link_url
     },

@@ -7,10 +7,10 @@
       :target="linkTarget"
       :class="linkClass"
     >
-      {{ ingredient.value }}
+      {{ value }}
     </a>
     <template v-else>
-      {{ ingredient.value }}
+      {{ value }}
     </template>
   </component>
 </template>
