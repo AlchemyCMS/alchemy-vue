@@ -9,7 +9,7 @@ function hasIngredients(element) {
 function getElementsEssence(element, name) {
   if (hasIngredients(element)) {
     console.warn("Element \"".concat(element.name, "\" has ingredients! We returned the ingredient object, but please use getIngredient(\"").concat(name, "\") instead."));
-    return getElementsIngredient(element, name, false);
+    return getElementsIngredient(element, name);
   }
 
   return element.essences.find(function (e) {
@@ -19,13 +19,7 @@ function getElementsEssence(element, name) {
 function getElementsIngredient(element, name) {
   var _getElementsEssence;
 
-  var warn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-
   if (hasIngredients(element)) {
-    if (warn) {
-      console.warn("Element \"".concat(element.name, "\" has ingredients! We returned an ingredient object instead of a single value. Please use getValue(\"").concat(name, "\") or use the value property to get the value of the \"").concat(name, "\" ingredient."));
-    }
-
     return element.ingredients.find(function (i) {
       return i.role === name;
     });
@@ -37,7 +31,7 @@ function getElementsRichtext(element, name) {
   var thing;
 
   if (hasIngredients(element)) {
-    thing = getElementsIngredient(element, name, false) || {};
+    thing = getElementsIngredient(element, name) || {};
   } else {
     thing = getElementsEssence(element, name) || {};
   }
@@ -47,7 +41,7 @@ function getElementsRichtext(element, name) {
 function getElementsValue(element, name) {
   var _getElementsIngredien;
 
-  return (_getElementsIngredien = getElementsIngredient(element, name, false)) === null || _getElementsIngredien === void 0 ? void 0 : _getElementsIngredien.value;
+  return (_getElementsIngredien = getElementsIngredient(element, name)) === null || _getElementsIngredien === void 0 ? void 0 : _getElementsIngredien.value;
 }
 
 var AlchemyElement = {
@@ -155,9 +149,7 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
     // server build
     hook = function (context) {
       // 2.3 injection
-      context = context || // cached call
-      this.$vnode && this.$vnode.ssrContext || // stateful
-      this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+      context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
       // 2.2 with runInNewContext: true
 
       if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
