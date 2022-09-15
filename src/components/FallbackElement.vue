@@ -15,12 +15,10 @@
         </li>
       </ul>
     </template>
-    <template v-if="element.nested_elements.length">
-      <h3>
-        This element has {{ element.nested_elements.length }} nested element(s)
-      </h3>
+    <template v-if="nestedElements.length">
+      <h3>This element has {{ nestedElements.length }} nested element(s)</h3>
       <FallbackElement
-        v-for="nested_element in element.nested_elements"
+        v-for="nested_element in nestedElements"
         :key="nested_element.id"
         :element="nested_element"
       />
@@ -34,5 +32,10 @@
   export default {
     name: "FallbackElement",
     mixins: [AlchemyElement],
+    computed: {
+      nestedElements() {
+        return this.element.nested_elements || this.element.nestedElements
+      },
+    },
   }
 </script>

@@ -25,7 +25,7 @@ describe("FallbackElement", () => {
   it("displays the element type", () => {
     const component = getComponent()
     expect(component.text()).toContain(
-      "I am a dummy main_header Alchemy element component",
+      "I am a dummy main_header Alchemy element component"
     )
   })
 
@@ -35,8 +35,33 @@ describe("FallbackElement", () => {
     expect(component.text()).toContain("headline")
   })
 
-  it("lists all nested elements as FallbackElement", () => {
-    const component = getComponent()
-    expect(component.findComponent(FallbackElement).exists()).toBeTruthy()
+  describe("with default casing", () => {
+    it("lists all nested elements as FallbackElement", () => {
+      const component = getComponent()
+      expect(component.findComponent(FallbackElement).exists()).toBeTruthy()
+    })
+  })
+
+  describe("with camel casing", () => {
+    it("lists all nested elements as FallbackElement", () => {
+      const component = shallowMount(FallbackElement, {
+        propsData: {
+          element: {
+            name: "main_header",
+            essences: [
+              {
+                role: "headline",
+              },
+            ],
+            nestedElements: [
+              {
+                name: "header",
+              },
+            ],
+          },
+        },
+      })
+      expect(component.findComponent(FallbackElement).exists()).toBeTruthy()
+    })
   })
 })
