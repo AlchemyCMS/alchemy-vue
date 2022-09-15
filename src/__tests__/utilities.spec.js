@@ -135,15 +135,36 @@ describe("Alchemy element utilities", () => {
       })
 
       describe("if ingredient with sanitized_body exists", () => {
-        it("returns the ingredients sanitized_body", () => {
-          const headline = { role: "headline", sanitized_body: "The Headline" }
-          const element = {
-            name: "article",
-            ingredients: [headline],
-          }
-          expect(getElementsRichtext(element, "headline")).toEqual(
-            "The Headline"
-          )
+        describe("with default casing", () => {
+          it("returns the ingredients sanitized_body", () => {
+            const headline = {
+              role: "headline",
+              sanitized_body: "The Headline",
+            }
+            const element = {
+              name: "article",
+              ingredients: [headline],
+            }
+            expect(getElementsRichtext(element, "headline")).toEqual(
+              "The Headline"
+            )
+          })
+        })
+
+        describe("with camel casing", () => {
+          it("returns the ingredients sanitizedBody", () => {
+            const headline = {
+              role: "headline",
+              sanitizedBody: "The Headline",
+            }
+            const element = {
+              name: "article",
+              ingredients: [headline],
+            }
+            expect(getElementsRichtext(element, "headline")).toEqual(
+              "The Headline"
+            )
+          })
         })
       })
 

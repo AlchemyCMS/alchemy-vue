@@ -26,7 +26,9 @@ export function getElementsRichtext(element, name) {
   } else {
     thing = getElementsEssence(element, name) || {}
   }
-  return thing.sanitized_body || thing.value || thing.body
+  return (
+    thing.sanitizedBody || thing.sanitized_body || thing.value || thing.body
+  )
 }
 
 export function getElementsValue(element, name) {

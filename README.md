@@ -101,3 +101,7 @@ Also you have access to the `getIngredient()` and `getEssence()` methods that yo
 ```
 
 _**Note** you need to pass the data into the components `element` prop either by fetching it from the Alchemy API, by passing it from a page component (see example above) or by erb interpolation._
+
+### `camelCase` attributes
+
+This package supports `camelCase` attributes as well was `under_score` attributes.

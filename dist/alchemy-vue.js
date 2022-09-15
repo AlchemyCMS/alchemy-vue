@@ -36,7 +36,7 @@ function getElementsRichtext(element, name) {
     thing = getElementsEssence(element, name) || {};
   }
 
-  return thing.sanitized_body || thing.value || thing.body;
+  return thing.sanitizedBody || thing.sanitized_body || thing.value || thing.body;
 }
 function getElementsValue(element, name) {
   var _getElementsIngredien;
@@ -114,6 +114,11 @@ var AlchemyElement = {
 var script = {
   name: "FallbackElement",
   mixins: [AlchemyElement],
+  computed: {
+    nestedElements() {
+      return this.element.nested_elements || this.element.nestedElements
+    },
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
@@ -255,17 +260,17 @@ var __vue_render__ = function() {
           ]
         : _vm._e(),
       _vm._v(" "),
-      _vm.element.nested_elements.length
+      _vm.nestedElements.length
         ? [
             _c("h3", [
               _vm._v(
-                "\n      This element has " +
-                  _vm._s(_vm.element.nested_elements.length) +
-                  " nested element(s)\n    "
+                "This element has " +
+                  _vm._s(_vm.nestedElements.length) +
+                  " nested element(s)"
               )
             ]),
             _vm._v(" "),
-            _vm._l(_vm.element.nested_elements, function(nested_element) {
+            _vm._l(_vm.nestedElements, function(nested_element) {
               return _c("FallbackElement", {
                 key: nested_element.id,
                 attrs: { element: nested_element }
